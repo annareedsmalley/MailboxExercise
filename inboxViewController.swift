@@ -58,47 +58,30 @@ class inboxViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    
     @IBAction func onPanMessage(sender: UIPanGestureRecognizer) {
         
         let location = sender.locationInView(view)
         let translation = sender.translationInView(view)
         let velocity = sender.velocityInView(view)
         
+        if sender.state == UIGestureRecognizerState.Began {print ("you started panning, so I'm setting the icons to be grayed out, I'm starting the animation to darken them, and I'm setting the initial centers of the message and both icons to be equal to where they were when you started panning.")
         
-        if sender.state == UIGestureRecognizerState.Began {
+            leftIconView.alpha = 0.5
+            rightIconView.alpha = 0.5
             
-                print ("you started panning, so I'm setting the icons to be grayed out, I'm starting the animation to darken them, and I'm setting the initial centers of the message and both icons to be equal to where they were when you started panning.")
-        
-            
-                leftIconView.alpha = 0.5
-                rightIconView.alpha = 0.5
-            
-                UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.leftIconView.alpha = 1
-                self.rightIconView.alpha = 1
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.leftIconView.alpha = 1
+            self.rightIconView.alpha = 1
                 
-                }, completion: { (Bool) -> Void in print("you completed animation")
-                })
+            }, completion: { (Bool) -> Void in print("you completed animation")
+            })
             
+            initialCenter = messageView.center
+            initialRightIconCenter = rightIconView.center
+            initialLeftIconCenter = leftIconView.center
+            initialFeedCenter = feedImageView.center
             
-                initialCenter = messageView.center
-                initialRightIconCenter = rightIconView.center
-                initialLeftIconCenter = leftIconView.center
-                initialFeedCenter = feedImageView.center
-            
-                }
+        }
         
         else if sender.state == UIGestureRecognizerState.Changed {print("You didn't stop panning, so I'm now going to be moving the center of the Message along with your finger. Also, whenever the location of your finger is far left enough, I'm going to change the color to yellow and make the icon start following you. The location of your finger is now: \(location) and the location of the center of the Message is now: \(messageView.center).")
            
@@ -145,7 +128,6 @@ class inboxViewController: UIViewController {
                 messageMovedLeftMoreThan60 = Bool(false)
                     
             }
-                
             
             else if messageView.center.x <= 420 {print ("the message center is between 220 and 420, so so I'm going to change the color to GREEN and make the icon start following and set a variable for green and set a variable saying it was in the go zone.")
                 
@@ -199,7 +181,7 @@ class inboxViewController: UIViewController {
                     }, completion: { (Bool) -> Void in []
                     })
                     
-                    }
+                }
                 
                 else if backgroundColor == 2.0 {print("released while brown so now need to remove the left icon, continue animating the message to the left until it goes off screen, and fade out the right icon, and then fade in the list screen")
                 
@@ -216,6 +198,7 @@ class inboxViewController: UIViewController {
                     })
                 
                 }
+                    
                 else if backgroundColor == 3.0 {print ("released while green so now need to remove the right icon, continue animating the message to the right until it goes off screen, and fade out the left icon, and then remove the entire green message")
                     
                     self.rightIconView.alpha = 0
@@ -223,16 +206,11 @@ class inboxViewController: UIViewController {
                     UIView.animateWithDuration(0.4, animations: { () -> Void in
                         self.messageView.center.x = 480
                         self.leftIconView.alpha = 0
-                        }) { (Bool)  -> Void in
-                            
-                                UIView.animateWithDuration(0.4, animations: { () -> Void in
+                        }) { (Bool)  -> Void in UIView.animateWithDuration(0.4, animations: { () -> Void in
                                     self.feedImageView.center.y = self.initialFeedCenter.y - 85
-                                })
-                            
+                        })
                     }
-                    
                 }
-            
             
                 else if backgroundColor == 4.0 {print ("released while red so now need to remove the right icon, continue animating the message to the right until it goes off screen, and fade out the left icon, and then remove the entire red message")
                     
@@ -246,11 +224,8 @@ class inboxViewController: UIViewController {
                             UIView.animateWithDuration(0.4, animations: { () -> Void in
                                 self.feedImageView.center.y = self.initialFeedCenter.y - 85
                             })
-                            
+                        }
                     }
-                    
-            }
-            
             }
     }
     
@@ -262,16 +237,11 @@ class inboxViewController: UIViewController {
             self.feedImageView.center.y = self.initialFeedCenter.y - 85
             }) { (Bool) -> Void in
                 [self.messageView.center.x = self.initialCenter.x,
-                    
-                    
                 UIView.animateWithDuration(0.3, animations: { () -> Void in
-                    
-                    self.feedImageView.center.y = self.initialFeedCenter.y
+                self.feedImageView.center.y = self.initialFeedCenter.y
                 })
-                    
                 ]
-        }
-        
+            }
     }
     
     @IBAction func onTapListView(sender: UITapGestureRecognizer) {print ("You tapped the origin-brown list screen so I'm going to hide the list screen, then animate hiding the message from below, moving the feed up over it, then bringing the message image back to center, and then revealing the container by moving the feed back down below it.")
@@ -283,16 +253,12 @@ class inboxViewController: UIViewController {
             }) { (Bool) -> Void in
                 [self.messageView.center.x = self.initialCenter.x,
                     
-                    
                     UIView.animateWithDuration(0.3, animations: { () -> Void in
                         
                         self.feedImageView.center.y = self.initialFeedCenter.y
                     })
-                    
                 ]
         }
-    
-        
     }
 }
 
