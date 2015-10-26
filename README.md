@@ -12,4 +12,4 @@ And here's the user starting to add the Aug. 15th email to a list, then cancelli
 
 However, when the user pans the message to the left and starts down the path of rescheduling, but then cancels that, then decides to pan the message to the left again, unfortunately I haven't figured out how to make the icons show up as they normally do:
 
-![alt text](MailboxExerciseTake2c.gif)
+![alt text](MailboxExerciseTake2d.gif)
