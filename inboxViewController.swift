@@ -106,6 +106,8 @@ class inboxViewController: UIViewController {
             
             if messageView.center.x <= -100 {print("the message center is at or below -100, so I'm going to change the color to BROWN and and change the icon and make the icon start following and set a variable for brown and set a variable saying it was in the go zone.")
                 
+                leftIconView.alpha = 0
+                
                 backgroundColorView.backgroundColor = UIColor(red: 204/255, green: 149/255, blue: 97/255, alpha: 1)
                 
                 rightIconView.image = UIImage(named: "list_icon")
@@ -120,6 +122,8 @@ class inboxViewController: UIViewController {
 
             else if messageView.center.x <= 100 {print("the message center is between -100 and 100, so I'm going to change the color to YELLOW and make the icon start following and change the icon and set a variable for yellow and set a variable saying it was in the go zone.")
                 
+                leftIconView.alpha = 0
+                
                 backgroundColorView.backgroundColor = UIColor(red: 248/255, green: 204/255, blue: 40/255, alpha: 1)
                 
                 rightIconView.image = UIImage(named: "later_icon")
@@ -133,7 +137,7 @@ class inboxViewController: UIViewController {
             }
                 
             else if messageView.center.x <= 220 {print("the message center is between 100 and 220, so undo the yellow and brown etc stuff.")
-                    
+                
                 backgroundColorView.backgroundColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
                     
                 rightIconView.center.x = CGFloat(initialRightIconCenter.x)
@@ -144,6 +148,8 @@ class inboxViewController: UIViewController {
                 
             
             else if messageView.center.x <= 420 {print ("the message center is between 220 and 420, so so I'm going to change the color to GREEN and make the icon start following and set a variable for green and set a variable saying it was in the go zone.")
+                
+                rightIconView.alpha = 0
                 
                 backgroundColorView.backgroundColor = UIColor(red: 98/255, green: 213/255, blue: 80/255, alpha: 1)
                 
@@ -160,6 +166,8 @@ class inboxViewController: UIViewController {
             
             else if messageView.center.x > 420 {print ("the message center is between 220 and 420, so so I'm going to change the color to RED 237 83 41 and make the icon start following and set a variable for red and set a variable saying it was in the go zone.")
             
+                rightIconView.alpha = 0
+                
                 backgroundColorView.backgroundColor = UIColor(red: 237/255, green: 83/255, blue: 41/255, alpha: 1)
             
                 leftIconView.image = UIImage(named: "delete_icon")
