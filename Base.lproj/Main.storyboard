@@ -59,7 +59,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tfU-By-ZCP">
                                 <rect key="frame" x="0.0" y="76" width="320" height="492"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cw6-ot-s1n" userLabel="Message in question view">
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cw6-ot-s1n" userLabel="Message container view">
                                         <rect key="frame" x="0.0" y="20" width="320" height="85"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ttB-lz-hrY" userLabel="Background color">

@@ -124,8 +124,11 @@ class inboxViewController: UIViewController {
                 backgroundColorView.backgroundColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
                     
                 rightIconView.center.x = CGFloat(initialRightIconCenter.x)
+                
+                leftIconView.center.x = CGFloat(initialLeftIconCenter.x)
             
                 messageMovedLeftMoreThan60 = Bool(false)
+                
                     
             }
             
@@ -163,19 +166,22 @@ class inboxViewController: UIViewController {
             }
         }
         
-        else if sender.state == UIGestureRecognizerState.Ended {print("You lifted your finger")
+        else if sender.state == UIGestureRecognizerState.Ended {print("(PROBLEM?) You lifted your finger")
             
                 if messageMovedLeftMoreThan60 == false {messageView.center = initialCenter}
             
                 else if backgroundColor == 1.0 {print("released while yellow so now need to remove the left icon, continue animating the message to the left until it goes off screen, and fade out the right icon, and then fade in the schedule screen")
                 
+                    //hide the left icon - don't need it
                     self.leftIconView.alpha = 0
                 
+                    //animate moving the message all the way to the left and fading out the right icon
                     UIView.animateWithDuration(0.4, animations: { () -> Void in
                     self.messageView.center.x = -160
                     self.rightIconView.alpha = 0
                     })
                 
+                    //add a delay, then fade in schedule screen
                     UIView.animateWithDuration(0.4, delay: 0.4, options: [], animations: { () -> Void in
                     self.rescheduleOverlayView.alpha = 1
                     }, completion: { (Bool) -> Void in []
@@ -229,19 +235,25 @@ class inboxViewController: UIViewController {
             }
     }
     
-    @IBAction func onTapRescheduler(sender: UITapGestureRecognizer) {print ("You tapped the origin-yellow rescheduler screen so I'm going to hide the reschedule screen, then animate hiding the message from below, moving the feed up over it, then bringing the message image back to center, and then revealing the container by moving the feed back down below it.")
+    @IBAction func onTapRescheduler(sender: UITapGestureRecognizer) {print (" You tapped the origin-yellow rescheduler screen so I'm going to hide (dismiss) the reschedule screen, then animate hiding the message from below, moving the feed up over it, then bringing the message image back to center, and then revealing the container by moving the feed back down below it.")
         
+        //dismiss the rescheduler overlay
         rescheduleOverlayView.alpha = 0
         
+        //animate the feed moving up. since it's layered in front of the message container view, the yellow disappears.
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.feedImageView.center.y = self.initialFeedCenter.y - 85
-            }) { (Bool) -> Void in
-                [self.messageView.center.x = self.initialCenter.x,
+            }){ (Bool) -> Void in
+                [self.messageView.center.x = self.initialCenter.x, rightIconView.center.x = CGFloat(initialRightIconCenter.x), self.rightIconView.alpha = 1,
                 UIView.animateWithDuration(0.3, animations: { () -> Void in
                 self.feedImageView.center.y = self.initialFeedCenter.y
                 })
                 ]
             }
+        
+        leftIconView.center.x = CGFloat(initialLeftIconCenter.x)
+        rightIconView.center.x = CGFloat(initialLeftIconCenter.x)
+
     }
     
     @IBAction func onTapListView(sender: UITapGestureRecognizer) {print ("You tapped the origin-brown list screen so I'm going to hide the list screen, then animate hiding the message from below, moving the feed up over it, then bringing the message image back to center, and then revealing the container by moving the feed back down below it.")
